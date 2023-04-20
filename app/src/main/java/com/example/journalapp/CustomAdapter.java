@@ -1,5 +1,6 @@
 package com.example.journalapp;
 
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
 
             textView = (TextView) view.findViewById(R.id.textView);
             textView.setOnClickListener(listener);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         }
 
         public TextView getTextView(){

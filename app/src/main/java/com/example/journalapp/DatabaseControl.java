@@ -80,9 +80,9 @@ public class DatabaseControl {
         ArrayList<String> array = new ArrayList<String>();
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
-        array.add(cursor.getString(0));
-        cursor.moveToNext();
         while(!cursor.isAfterLast()){
+            array.add(cursor.getString(0));
+            cursor.moveToNext();
         }
         cursor.close();
         return array.toArray(new String[array.size()]);

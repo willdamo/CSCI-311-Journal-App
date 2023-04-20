@@ -73,7 +73,8 @@ public class NewEntryActivity extends AppCompatActivity {
         control = new DatabaseControl(this);
 
         int checkBoxes = 0;
-        boolean checkDay = true; //true if the day input is a numerical number between 1 and 31 inclusive
+        boolean checkDay = true; //true if the day input is a numerical number between 1 and 31
+                                    // inclusive
 
         if(TextUtils.isEmpty(titleInput.getText().toString())){
             checkBoxes++;
