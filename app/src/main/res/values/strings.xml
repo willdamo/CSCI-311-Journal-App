@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Journal App</string>
 
+    <string name="element_text">Element</string>
+
     <string-array name="months">
+        <item></item>
         <item>January</item>
         <item>February</item>
         <item>March</item>

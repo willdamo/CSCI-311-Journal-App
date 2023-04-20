@@ -41,8 +41,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
         android:text="Month"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,44 +52,34 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="80dp"
         android:text="Day"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="52dp"
         android:text="Year"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView4" />
+        app:layout_constraintTop_toTopOf="@+id/textView4"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Spinner
         android:id="@+id/monthSpinner"
-        android:layout_width="75dp"
+        android:layout_width="124dp"
         android:layout_height="44dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <EditText
-        android:id="@+id/dayInput3"
-        android:layout_width="75dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="60dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="@+id/monthSpinner"
-        app:layout_constraintStart_toEndOf="@+id/monthSpinner"
-        app:layout_constraintTop_toTopOf="@+id/monthSpinner" />
 
     <Button
         android:id="@+id/saveButton"
@@ -104,20 +94,21 @@
 
     <EditText
         android:id="@+id/dayInput"
-        android:layout_width="75dp"
+        android:layout_width="92dp"
         android:layout_height="44dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="20dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/monthSpinner"
         app:layout_constraintStart_toEndOf="@+id/monthSpinner"
-        app:layout_constraintTop_toTopOf="@+id/monthSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
         android:id="@+id/yearInput"
-        android:layout_width="75dp"
+        android:layout_width="92dp"
         android:layout_height="44dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="@+id/dayInput"
@@ -138,5 +129,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dayInput3" />
+        app:layout_constraintTop_toBottomOf="@+id/monthSpinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

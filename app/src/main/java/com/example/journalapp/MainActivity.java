@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     Button openButton;
     Button deleteButton;
     RecyclerView recyclerView;
+    CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
