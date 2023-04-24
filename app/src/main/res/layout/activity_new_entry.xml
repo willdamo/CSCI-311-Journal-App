@@ -8,12 +8,13 @@
 
     <Button
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="44dp"
         android:background="#FF6969"
         android:text="Back"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entryInput" />
 
@@ -84,11 +85,12 @@
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="65dp"
         android:layout_marginEnd="40dp"
         android:background="#7CFF73"
         android:text="Save"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/backButton"
@@ -121,15 +123,15 @@
     <EditText
         android:id="@+id/entryInput"
         android:layout_width="378dp"
-        android:layout_height="424dp"
-        android:layout_marginTop="12dp"
+        android:layout_height="425dp"
+        android:layout_marginTop="32dp"
         android:background="#F3F3F3"
         android:ems="10"
         android:gravity="top|left"
         android:inputType="textLongMessage|textPersonName"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/monthSpinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>

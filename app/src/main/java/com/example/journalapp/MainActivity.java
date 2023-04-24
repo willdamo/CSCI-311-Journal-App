@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     CustomAdapter adapter;
     DatabaseControl control;
     String selectedTitle;
+    TextView selectedView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         openButton = findViewById(R.id.openButton);
         deleteButton = findViewById(R.id.deleteButton);
         recyclerView = findViewById(R.id.recyclerView);
+        selectedView = findViewById(R.id.selectedView);
+
+        openButton.setVisibility(openButton.INVISIBLE);
+        deleteButton.setVisibility(deleteButton.INVISIBLE);
 
         setNewEntry();
         setDeleteButton();
@@ -80,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                     selectedTitle = ((TextView) view).getText().toString();
                     Toast.makeText(getApplicationContext(), selectedTitle +" selected",
                             Toast.LENGTH_SHORT).show();
+                    openButton.setVisibility(openButton.VISIBLE);
+                    deleteButton.setVisibility(deleteButton.VISIBLE);
+                    selectedView.setText(selectedTitle+" selected");
+
                 }
             });
         }
