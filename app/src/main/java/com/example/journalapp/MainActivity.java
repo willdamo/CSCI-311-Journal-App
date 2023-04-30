@@ -12,6 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+TODO LIST
+Must add a settings feature that gives a way to the configurations of the text size, button colors
+and etc.
+Settings will also have the option to delete everything from the database.
+Take off unnecessary Toasts.
+ */
 public class MainActivity extends AppCompatActivity {
 
     Button newEntryButton;
@@ -20,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     CustomAdapter adapter;
     DatabaseControl control;
-    String selectedTitle;
+    String selectedTitle = "";
     TextView selectedView;
 
     @Override
@@ -39,8 +46,10 @@ public class MainActivity extends AppCompatActivity {
         openButton.setVisibility(openButton.INVISIBLE);
         deleteButton.setVisibility(deleteButton.INVISIBLE);
 
+        //setting buttons
         setNewEntry();
         setDeleteButton();
+        setOpenButton();
     }
 
     public void setNewEntry(){
@@ -57,12 +66,29 @@ public class MainActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(selectedTitle.equals("")){
+                    return;
+                }
                 control.open();
                 control.delete(selectedTitle);
                 control.close();
                 onResume();
                 Toast.makeText(getApplicationContext(), selectedTitle+" DELETED Successfully!",
                         Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void setOpenButton(){
+        openButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(selectedTitle.equals("")){
+                    return;
+                }
+                Intent i = new Intent(getApplicationContext(), openEntryActivity.class);
+                i.putExtra("title", selectedTitle);
+                startActivity(i);
             }
         });
     }

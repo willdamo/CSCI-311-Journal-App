@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="top|left"
+    android:overScrollMode="always"
+    android:scrollbarStyle="insideInset"
     tools:context=".NewEntryActivity">
 
     <Button
@@ -12,7 +15,7 @@
         android:layout_height="65dp"
         android:layout_marginStart="40dp"
         android:layout_marginTop="44dp"
-        android:background="#FF6969"
+        android:background="#FFC107"
         android:text="Back"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,8 +130,9 @@
         android:layout_marginTop="32dp"
         android:background="#F3F3F3"
         android:ems="10"
-        android:gravity="top|left"
-        android:inputType="textLongMessage|textPersonName"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
         android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"

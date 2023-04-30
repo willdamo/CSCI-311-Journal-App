@@ -66,6 +66,14 @@ public class DatabaseControl {
         return year;
     }
 
+    public String getDate(String title){
+        String month = getMonth(title);
+        String day = getDay(title);
+        String year = getYear(title);
+
+        return month+" "+day+", "+year;
+    }
+
     public String getJournal(String title) {
         String query = "select journal from entries where title=\""+title+"\"";
         Cursor cursor = database.rawQuery(query, null);
