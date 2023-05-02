@@ -35,6 +35,16 @@ public class DatabaseControl {
         return database.insert("entries", null, values) > 0;
     }
 
+    public int updateEntry(String ogTitle, String title, String month, String day, String year, String journal){
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("month", month);
+        values.put("day", day);
+        values.put("year", year);
+        values.put("journal", journal);
+        return database.update("entries", values, "title=?", new String[]{ogTitle});
+    }
+
     public void delete(String title){
         database.delete("entries", "title=\""+title+"\"", null);
     }

@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 //TODO LIST
 /*
-Must keep original title and journal text intact with String variable
-Must be able to update the database by implementing the update method
+None
  */
 public class openEntryActivity extends AppCompatActivity {
 
@@ -23,6 +22,8 @@ public class openEntryActivity extends AppCompatActivity {
     TextView dateView;
     EditText journalView;
     DatabaseControl control;
+    String ogTitle;
+    String ogEntry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,11 @@ public class openEntryActivity extends AppCompatActivity {
         String titleName = i.getStringExtra("title");
 
         control = new DatabaseControl(this);
+
+        ogTitle = titleName;
+        control.open();
+        ogEntry = control.getJournal(titleName);
+        control.close();
 
         backButton2 = findViewById(R.id.backButton2);
         editButton = findViewById(R.id.editButton);
@@ -50,7 +56,7 @@ public class openEntryActivity extends AppCompatActivity {
         setDeleteButton();
         setEditButton();
         setJournalPage(titleName);
-
+        setBackButton();
     }
 
     //setting the page activity to show title and other elements
@@ -88,6 +94,15 @@ public class openEntryActivity extends AppCompatActivity {
         }
     }
 
+    //set to true if either titleView or journalView is changed
+    public boolean isChanged(){
+        if(!titleView.getText().toString().equalsIgnoreCase(ogTitle) ||
+                !journalView.getText().toString().equalsIgnoreCase(ogEntry)){
+            return true;
+        }
+        return false;
+    }
+
     public void setDeleteButton(){
         deleteButton2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,7 +133,20 @@ public class openEntryActivity extends AppCompatActivity {
                     journalView.setEnabled(false);
                     titleView.setEnabled(false);
 
-                    //add code here to update database
+                    //updating database
+                    if(isChanged()){
+                        String newTitle = titleView.getText().toString();
+                        String newJournal = journalView.getText().toString();
+
+                        control.open();
+                        //getting the date since date is not modified in this activity
+                        String month = control.getMonth(ogTitle);
+                        String day= control.getDay(ogTitle);
+                        String year = control.getYear(ogTitle);
+
+                        control.updateEntry(ogTitle, newTitle, month, day, year, newJournal);
+                    }
+
                     setBackButton();
                 }
             }

@@ -17,7 +17,7 @@ TODO LIST
 Must add a settings feature that gives a way to the configurations of the text size, button colors
 and etc.
 Settings will also have the option to delete everything from the database.
-Take off unnecessary Toasts.
+Create the update method in DatabaseControl class
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -109,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     selectedTitle = ((TextView) view).getText().toString();
-                    Toast.makeText(getApplicationContext(), selectedTitle +" selected",
-                            Toast.LENGTH_SHORT).show();
                     openButton.setVisibility(openButton.VISIBLE);
                     deleteButton.setVisibility(deleteButton.VISIBLE);
                     selectedView.setText(selectedTitle+" selected");
