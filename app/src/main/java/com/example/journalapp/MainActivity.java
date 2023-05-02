@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,14 +17,16 @@ import android.widget.Toast;
 TODO LIST
 Must add a settings feature that gives a way to the configurations of the text size, button colors
 and etc.
+Add settings activity
+Configure settings button
 Settings will also have the option to delete everything from the database.
-Create the update method in DatabaseControl class
  */
 public class MainActivity extends AppCompatActivity {
 
-    Button newEntryButton;
+    ImageButton newEntryButton;
     Button openButton;
     Button deleteButton;
+    ImageButton settingsButton;
     RecyclerView recyclerView;
     CustomAdapter adapter;
     DatabaseControl control;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         newEntryButton = findViewById(R.id.newEntryButton);
         openButton = findViewById(R.id.openButton);
         deleteButton = findViewById(R.id.deleteButton);
+        settingsButton =findViewById(R.id.settingsButton);
         recyclerView = findViewById(R.id.recyclerView);
         selectedView = findViewById(R.id.selectedView);
 
@@ -47,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
         deleteButton.setVisibility(deleteButton.INVISIBLE);
 
         //setting buttons
-        setNewEntry();
+        setNewEntryButton();
         setDeleteButton();
         setOpenButton();
     }
 
-    public void setNewEntry(){
+    public void setNewEntryButton(){
         newEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

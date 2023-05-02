@@ -35,19 +35,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.09" />
 
-    <Button
-        android:id="@+id/newEntryButton"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#7CFF73"
-        android:text="+"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_wrapBehaviorInParent="included" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="405dp"
@@ -81,5 +68,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#AEAEAE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/settings_icon"
+        tools:layout_editor_absoluteY="11dp" />
+
+    <ImageButton
+        android:id="@+id/newEntryButton"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="#7CFF73"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settingsButton"
+        app:srcCompat="@drawable/plus_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
