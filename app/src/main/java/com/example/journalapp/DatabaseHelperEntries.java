@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelperEntries extends SQLiteOpenHelper {
 
-    public DatabaseHelper(@Nullable Context context){
+    public DatabaseHelperEntries(@Nullable Context context){
         super(context, "entries", null, 1);
     }
 

@@ -10,10 +10,10 @@ import java.util.ArrayList;
 public class DatabaseControl {
 
     SQLiteDatabase database;
-    DatabaseHelper helper;
+    DatabaseHelperEntries helper;
 
     public DatabaseControl(Context context) {
-        helper = new DatabaseHelper(context);
+        helper = new DatabaseHelperEntries(context);
     }
 
     public void open() {
