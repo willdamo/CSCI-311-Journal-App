@@ -19,7 +19,7 @@
         <item>December</item>
     </string-array>
     <string-array name="colors">
-        <item>Colors:</item>
+        <item>Default</item>
         <item>Red</item>
         <item>Yellow</item>
         <item>Blue</item>
@@ -33,10 +33,10 @@
         <item>Dark Gray</item>
     </string-array>
     <string-array name="themes">
+        <item>Default</item>
         <item>Night Owl</item>
         <item>Techno Feel</item>
         <item>Neon City</item>
-        <item>Sunny Day</item>
     </string-array>
 
 </resources>

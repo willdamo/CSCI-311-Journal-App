@@ -3,6 +3,7 @@ package com.example.journalapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +22,7 @@ public class openEntryActivity extends AppCompatActivity {
     EditText titleView;
     TextView dateView;
     EditText journalView;
-    DatabaseControl control;
+    DatabaseControlEntries control;
     String ogTitle;
     String ogEntry;
 
@@ -33,7 +34,7 @@ public class openEntryActivity extends AppCompatActivity {
         Intent i = getIntent();
         String titleName = i.getStringExtra("title");
 
-        control = new DatabaseControl(this);
+        control = new DatabaseControlEntries(this);
 
         ogTitle = titleName;
         control.open();
@@ -123,6 +124,7 @@ public class openEntryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(editButton.getText().toString().equalsIgnoreCase("Edit")){
                     editButton.setText("Save");
+                    editButton.setBackgroundColor(Color.parseColor("#7CFF73"));
                     journalView.setEnabled(true);
                     titleView.setEnabled(true);
 
@@ -130,6 +132,7 @@ public class openEntryActivity extends AppCompatActivity {
 
                 }else if(editButton.getText().toString().equalsIgnoreCase("Save")){
                     editButton.setText("Edit");
+                    editButton.setBackgroundColor(Color.parseColor("#00E1FF"));
                     journalView.setEnabled(false);
                     titleView.setEnabled(false);
 

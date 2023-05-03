@@ -7,12 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class DatabaseControl {
+public class DatabaseControlEntries {
 
     SQLiteDatabase database;
     DatabaseHelperEntries helper;
 
-    public DatabaseControl(Context context) {
+    public DatabaseControlEntries(Context context) {
         helper = new DatabaseHelperEntries(context);
     }
 

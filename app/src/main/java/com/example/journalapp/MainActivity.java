@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,13 +25,14 @@ Settings will also have the option to delete everything from the database.
  */
 public class MainActivity extends AppCompatActivity {
 
+    TextView journalName;
     ImageButton newEntryButton;
     Button openButton;
     Button deleteButton;
     ImageButton settingsButton;
     RecyclerView recyclerView;
     CustomAdapter adapter;
-    DatabaseControl control;
+    DatabaseControlEntries control;
     String selectedTitle = "";
     TextView selectedView;
 
@@ -38,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        control = new DatabaseControl(this);
+        control = new DatabaseControlEntries(this);
 
+        journalName = findViewById(R.id.journalName);
         newEntryButton = findViewById(R.id.newEntryButton);
         openButton = findViewById(R.id.openButton);
         deleteButton = findViewById(R.id.deleteButton);
@@ -54,6 +58,33 @@ public class MainActivity extends AppCompatActivity {
         setNewEntryButton();
         setDeleteButton();
         setOpenButton();
+        setSettingsButton();
+
+        //setting default settings
+        setDefaultSettings();
+    }
+
+    protected void onResume() {
+        super.onResume();
+        setRecyclerView();
+    }
+
+    //sets the default values in shared preferences
+    public void setDefaultSettings() {
+        SharedPreferences settingsFile = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settingsFile.edit();
+        editor.putString("journalName", journalName.getText().toString());
+        editor.putString("theme", "Default");
+        editor.putString("saveColor", "Default");
+        editor.putString("deleteColor", "Default");
+        editor.putString("backColor", "Default");
+        editor.putString("addEditColor", "Default");
+        editor.putString("textColor", "Default");
+        editor.putString("backgroundColor", "Default");
+    }
+
+    public void applyUpdatedSettings(){
+
     }
 
     public void setNewEntryButton(){
@@ -61,6 +92,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), NewEntryActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    public void setSettingsButton(){
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+                i.putExtra("journalName", journalName.getText().toString());
                 startActivity(i);
             }
         });
@@ -95,11 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
-
-    protected void onResume() {
-        super.onResume();
-        setRecyclerView();
     }
 
 

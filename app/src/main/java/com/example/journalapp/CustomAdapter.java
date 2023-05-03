@@ -24,7 +24,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public ViewHolder(View view){
             super(view);
 
-            textView = (TextView) view.findViewById(R.id.textView);
+            textView = (TextView) view.findViewById(R.id.journalName);
             textView.setOnClickListener(listener);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         }

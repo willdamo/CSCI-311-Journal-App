@@ -25,7 +25,7 @@ public class NewEntryActivity extends AppCompatActivity {
     EditText entryInput;
     Button backButton;
     Button saveButton;
-    DatabaseControl control;
+    DatabaseControlEntries control;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class NewEntryActivity extends AppCompatActivity {
     //sets the save button and checks if all the required items are filled out. (Title, Month,
     //  Day, and Year.
     public void setSaveButton(){
-        control = new DatabaseControl(this);
+        control = new DatabaseControlEntries(this);
 
         int checkBoxes = 0;
         boolean checkDay = true; //true if the day input is a numerical number between 1 and 31
