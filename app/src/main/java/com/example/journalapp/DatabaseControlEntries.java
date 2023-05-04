@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-public class DatabaseControl {
+public class DatabaseControlEntries {
 
     SQLiteDatabase database;
-    DatabaseHelper helper;
+    DatabaseHelperEntries helper;
 
-    public DatabaseControl(Context context) {
-        helper = new DatabaseHelper(context);
+    public DatabaseControlEntries(Context context) {
+        helper = new DatabaseHelperEntries(context);
     }
 
     public void open() {
@@ -35,8 +35,22 @@ public class DatabaseControl {
         return database.insert("entries", null, values) > 0;
     }
 
+    public int updateEntry(String ogTitle, String title, String month, String day, String year, String journal){
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("month", month);
+        values.put("day", day);
+        values.put("year", year);
+        values.put("journal", journal);
+        return database.update("entries", values, "title=?", new String[]{ogTitle});
+    }
+
     public void delete(String title){
         database.delete("entries", "title=\""+title+"\"", null);
+    }
+
+    public void deleteAll(){
+        database.delete("entries", null, null);
     }
 
     public String getMonth(String title) {
@@ -66,6 +80,14 @@ public class DatabaseControl {
         return year;
     }
 
+    public String getDate(String title){
+        String month = getMonth(title);
+        String day = getDay(title);
+        String year = getYear(title);
+
+        return month+" "+day+", "+year;
+    }
+
     public String getJournal(String title) {
         String query = "select journal from entries where title=\""+title+"\"";
         Cursor cursor = database.rawQuery(query, null);
@@ -86,5 +108,24 @@ public class DatabaseControl {
         }
         cursor.close();
         return array.toArray(new String[array.size()]);
+    }
+
+    public String[] getDates(){
+        String query = "select title from entries";
+        ArrayList<String> array = new ArrayList<String>();
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            array.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        ArrayList<String> arrayDates = new ArrayList<>();
+        for(String s : array){
+            arrayDates.add(getDate(s));
+        }
+
+        return arrayDates.toArray(new String[arrayDates.size()]);
     }
 }

@@ -5,22 +5,29 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button newEntryButton;
+    View mainLayout;
+    TextView journalName;
+    ImageButton newEntryButton;
     Button openButton;
     Button deleteButton;
+    ImageButton settingsButton;
     RecyclerView recyclerView;
     CustomAdapter adapter;
-    DatabaseControl control;
-    String selectedTitle;
+    DatabaseControlEntries control;
+    String selectedTitle = "";
     TextView selectedView;
 
     @Override
@@ -28,22 +35,112 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        control = new DatabaseControl(this);
+        control = new DatabaseControlEntries(this);
 
+        mainLayout = findViewById(R.id.mainLayout);
+        journalName = findViewById(R.id.journalName);
         newEntryButton = findViewById(R.id.newEntryButton);
         openButton = findViewById(R.id.openButton);
         deleteButton = findViewById(R.id.deleteButton);
+        settingsButton =findViewById(R.id.settingsButton);
         recyclerView = findViewById(R.id.recyclerView);
         selectedView = findViewById(R.id.selectedView);
 
         openButton.setVisibility(openButton.INVISIBLE);
         deleteButton.setVisibility(deleteButton.INVISIBLE);
 
-        setNewEntry();
+        //setting buttons
+        setNewEntryButton();
         setDeleteButton();
+        setOpenButton();
+        setSettingsButton();
+
+        //setting default settings
+        SharedPreferences settingsFile = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setSettings(settingsFile);
+
+        //setting the layout
+        setLayout();
+
+        System.out.println("textColor: "+ settingsFile.getString("textColor", "none"));
     }
 
-    public void setNewEntry(){
+    public void setLayout(){
+        SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        if(file.contains("changed")){
+            journalName.setText(file.getString("journalName", "My Journal"));
+            if(file.getString("theme", "n/a").equals("Default")){
+                mainLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                deleteButton.setBackgroundColor(Color.parseColor("#FF6969"));
+                journalName.setTextColor(Color.parseColor("#000000"));
+                newEntryButton.setBackgroundColor(Color.parseColor("#00E1FF"));
+            } else if(file.getString("theme", "none").equals("Night Owl")){
+                mainLayout.setBackgroundColor(Color.parseColor("#6C6C6C"));
+                journalName.setTextColor(Color.parseColor("#FFFFFF"));
+                selectedView.setTextColor(Color.parseColor("#FFFFFF"));
+                newEntryButton.setBackgroundColor(Color.parseColor("#FFC107"));
+            }else {
+                newEntryButton.setBackgroundColor(Color.parseColor(getHexColors("addEditColor", "blue")));
+                journalName.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+                selectedView.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+                mainLayout.setBackgroundColor(Color.parseColor(getHexColors("backgroundColor", "white")));
+            }
+        }
+    }
+
+    public String getHexColors(String pref, String err){
+        SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String colorName = file.getString(pref, err);
+        if(colorName.equalsIgnoreCase("white")){
+            return "#FFFFFF";
+        }
+        if(colorName.equalsIgnoreCase("black")){
+            return "#000000";
+        }
+        if(colorName.equalsIgnoreCase("red")){
+            return "#FF6969";
+        }
+        if(colorName.equalsIgnoreCase("blue")){
+            return "#00E1FF";
+        }
+        if(colorName.equalsIgnoreCase("purple")){
+            return "#CE74FF";
+        }
+        if(colorName.equalsIgnoreCase("orange")){
+            return "#FFC107";
+        }
+        if(colorName.equalsIgnoreCase("gray")){
+            return "#989898";
+        }
+        if(colorName.equalsIgnoreCase("dark gray")){
+            return "#6C6C6C";
+        }
+        return "Default";
+    }
+
+    protected void onResume() {
+        super.onResume();
+        setRecyclerView();
+        setLayout();
+    }
+
+    //sets the default values in shared preferences
+    public void setSettings(SharedPreferences file) {
+        SharedPreferences.Editor editor = file.edit();
+        if(file.contains("changed")){
+            return;
+        }else{
+            editor.putString("journalName", journalName.getText().toString());
+            editor.putString("theme", "None");
+            editor.putString("backColor", "Default");
+            editor.putString("addEditColor", "Default");
+            editor.putString("textColor",  "Black");
+            editor.putString("backgroundColor",  "Default");
+            editor.commit();
+        }
+    }
+
+    public void setNewEntryButton(){
         newEntryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,10 +150,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void setSettingsButton(){
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
+                i.putExtra("journalName", journalName.getText().toString());
+                startActivity(i);
+            }
+        });
+    }
+
     public void setDeleteButton(){
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(selectedTitle.equals("")){
+                    return;
+                }
                 control.open();
                 control.delete(selectedTitle);
                 control.close();
@@ -67,15 +178,24 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void onResume() {
-        super.onResume();
-        setRecyclerView();
+    public void setOpenButton(){
+        openButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(selectedTitle.equals("")){
+                    return;
+                }
+                Intent i = new Intent(getApplicationContext(), openEntryActivity.class);
+                i.putExtra("title", selectedTitle);
+                startActivity(i);
+            }
+        });
     }
 
 
     public void setRecyclerView(){
         control.open();
-        adapter = new CustomAdapter(control.getTitles());
+        adapter = new CustomAdapter(control.getTitles(), control.getDates(), this);
         control.close();
 
         if(!(adapter == null)) {
@@ -83,12 +203,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     selectedTitle = ((TextView) view).getText().toString();
-                    Toast.makeText(getApplicationContext(), selectedTitle +" selected",
-                            Toast.LENGTH_SHORT).show();
                     openButton.setVisibility(openButton.VISIBLE);
                     deleteButton.setVisibility(deleteButton.VISIBLE);
-                    selectedView.setText(selectedTitle+" selected");
-
+                    selectedView.setText(selectedTitle+ " selected");
                 }
             });
         }

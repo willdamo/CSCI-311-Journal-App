@@ -3,7 +3,10 @@ package com.example.journalapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,6 +21,10 @@ import java.util.Locale;
 
 public class NewEntryActivity extends AppCompatActivity {
 
+    TextView monthText;
+    TextView dayText;
+    TextView yearText;
+    View newEntryLayout;
     EditText titleInput;
     Spinner monthSpinner;
     EditText dayInput;
@@ -25,13 +32,17 @@ public class NewEntryActivity extends AppCompatActivity {
     EditText entryInput;
     Button backButton;
     Button saveButton;
-    DatabaseControl control;
+    DatabaseControlEntries control;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_entry);
 
+        monthText = findViewById(R.id.monthText);
+        dayText = findViewById(R.id.dayText);
+        yearText = findViewById(R.id.yearText);
+        newEntryLayout = findViewById(R.id.newEntryLayout);
         titleInput = findViewById(R.id.titleInput);
         monthSpinner = findViewById(R.id.monthSpinner);
         dayInput = findViewById(R.id.dayInput);
@@ -48,6 +59,82 @@ public class NewEntryActivity extends AppCompatActivity {
                 setSaveButton();
             }
         });
+        setLayout();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLayout();
+    }
+
+    public void setLayout(){
+        SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+
+        //checks inside theme, if theme is none then proceed to make changes to other configurations
+        if(file.getString("theme", "n/a").equals("Default")){
+            entryInput.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            newEntryLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            backButton.setBackgroundColor(Color.parseColor("#FFC107"));
+            titleInput.setTextColor(Color.parseColor("#000000"));
+            entryInput.setTextColor(Color.parseColor("#000000"));
+            dayInput.setTextColor(Color.parseColor("#000000"));
+            yearInput.setTextColor(Color.parseColor("#000000"));
+            monthText.setTextColor(Color.parseColor("#000000"));
+            dayText.setTextColor(Color.parseColor("#000000"));
+            yearText.setTextColor(Color.parseColor("#000000"));
+        } else if(file.getString("theme", "none").equals("Night Owl")){
+            entryInput.setBackgroundColor(Color.parseColor("#6C6C6C"));
+            newEntryLayout.setBackgroundColor(Color.parseColor("#6C6C6C"));
+            backButton.setBackgroundColor(Color.parseColor("#00E1FF"));
+            titleInput.setTextColor(Color.parseColor("#FFFFFF"));
+            entryInput.setTextColor(Color.parseColor("#FFFFFF"));
+            dayInput.setTextColor(Color.parseColor("#FFFFFF"));
+            yearInput.setTextColor(Color.parseColor("#FFFFFF"));
+            monthText.setTextColor(Color.parseColor("#FFFFFF"));
+            dayText.setTextColor(Color.parseColor("#FFFFFF"));
+            yearText.setTextColor(Color.parseColor("#FFFFFF"));
+        }else {
+            backButton.setBackgroundColor(Color.parseColor(getHexColors("backColor", "orange")));
+            newEntryLayout.setBackgroundColor(Color.parseColor(getHexColors("backgroundColor", "white")));
+            entryInput.setBackgroundColor(Color.parseColor((getHexColors("backgroundColor", "white"))));
+            entryInput.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            titleInput.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            dayInput.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            yearInput.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            monthText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            dayText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            yearText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+        }
+    }
+    public String getHexColors(String pref, String err){
+        SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String colorName = file.getString(pref, err);
+        if(colorName.equalsIgnoreCase("white")){
+            return "#FFFFFF";
+        }
+        if(colorName.equalsIgnoreCase("black")){
+            return "#000000";
+        }
+        if(colorName.equalsIgnoreCase("red")){
+            return "#FF6969";
+        }
+        if(colorName.equalsIgnoreCase("blue")){
+            return "#00E1FF";
+        }
+        if(colorName.equalsIgnoreCase("purple")){
+            return "#CE74FF";
+        }
+        if(colorName.equalsIgnoreCase("orange")){
+            return "#FFC107";
+        }
+        if(colorName.equalsIgnoreCase("gray")){
+            return "#989898";
+        }
+        if(colorName.equalsIgnoreCase("dark gray")){
+            return "#6C6C6C";
+        }
+        return "Default";
     }
 
     public void setBackButton(){
@@ -70,7 +157,7 @@ public class NewEntryActivity extends AppCompatActivity {
     //sets the save button and checks if all the required items are filled out. (Title, Month,
     //  Day, and Year.
     public void setSaveButton(){
-        control = new DatabaseControl(this);
+        control = new DatabaseControlEntries(this);
 
         int checkBoxes = 0;
         boolean checkDay = true; //true if the day input is a numerical number between 1 and 31

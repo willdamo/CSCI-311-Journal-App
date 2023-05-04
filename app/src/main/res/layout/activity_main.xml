@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/mainLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:background="#FFFFFF"
     tools:context=".MainActivity">
 
@@ -11,17 +12,16 @@
         android:id="@+id/deleteButton"
         android:layout_width="120dp"
         android:layout_height="65dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginStart="60dp"
         android:background="#FF6969"
         android:text="Delete"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/openButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/openButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/openButton" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/journalName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Journals"
@@ -35,19 +35,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.09" />
 
-    <Button
-        android:id="@+id/newEntryButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#7CFF73"
-        android:text="+"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_wrapBehaviorInParent="included" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="405dp"
@@ -56,18 +43,20 @@
         android:background="#F3F3F3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/journalName" />
 
     <Button
         android:id="@+id/openButton"
         android:layout_width="120dp"
         android:layout_height="65dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="20dp"
         android:background="#7CFF73"
         android:text="Open"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     <TextView
@@ -79,5 +68,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#BFBFBF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/settings_icon" />
+
+    <ImageButton
+        android:id="@+id/newEntryButton"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#00E1FF"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settingsButton"
+        app:srcCompat="@drawable/plus_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingsLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+    <TextView
+        android:id="@+id/textColorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Text Color:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/addEditColorText"
+        app:layout_constraintTop_toBottomOf="@+id/addEditColorText" />
+
+    <TextView
+        android:id="@+id/backColorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Back Color:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/setThemeText"
+        app:layout_constraintTop_toBottomOf="@+id/setThemeText" />
+
+    <TextView
+        android:id="@+id/addEditColorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Add/Edit Color:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/backColorText"
+        app:layout_constraintTop_toBottomOf="@+id/backColorText" />
+
+    <TextView
+        android:id="@+id/backgroundText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Background:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/textColorText"
+        app:layout_constraintTop_toBottomOf="@+id/textColorText" />
+
+    <Button
+        android:id="@+id/deleteAllButton"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:background="#FF6969"
+        android:text="Delete All Entries"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/settingsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Settings"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/setThemeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:text="Set Theme:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/changeJournalName" />
+
+    <EditText
+        android:id="@+id/changeJournalName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:ems="30"
+        android:hint="Change Journal Name"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingsText" />
+
+    <Button
+        android:id="@+id/settingsBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFC107"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/settingsSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="#7CFF73"
+        android:text="Save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/themeSpinner"
+        android:layout_width="230dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/setThemeText"
+        app:layout_constraintStart_toEndOf="@+id/setThemeText"
+        app:layout_constraintTop_toTopOf="@+id/setThemeText" />
+
+    <Spinner
+        android:id="@+id/backColorSpinner"
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backColorText"
+        app:layout_constraintStart_toEndOf="@+id/backColorText"
+        app:layout_constraintTop_toTopOf="@+id/backColorText" />
+
+    <Spinner
+        android:id="@+id/addEditColorSpinner"
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addEditColorText"
+        app:layout_constraintStart_toEndOf="@+id/addEditColorText"
+        app:layout_constraintTop_toTopOf="@+id/addEditColorText" />
+
+    <Spinner
+        android:id="@+id/textColorSpinner"
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textColorText"
+        app:layout_constraintStart_toEndOf="@+id/textColorText"
+        app:layout_constraintTop_toTopOf="@+id/textColorText" />
+
+    <Spinner
+        android:id="@+id/backgroundColorSpinner"
+        android:layout_width="200dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundText"
+        app:layout_constraintStart_toEndOf="@+id/backgroundText"
+        app:layout_constraintTop_toTopOf="@+id/backgroundText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
