@@ -49,6 +49,10 @@ public class DatabaseControlEntries {
         database.delete("entries", "title=\""+title+"\"", null);
     }
 
+    public void deleteAll(){
+        database.delete("entries", null, null);
+    }
+
     public String getMonth(String title) {
         String query = "select month from entries where title=\""+title+"\"";
         Cursor cursor = database.rawQuery(query, null);
@@ -104,5 +108,24 @@ public class DatabaseControlEntries {
         }
         cursor.close();
         return array.toArray(new String[array.size()]);
+    }
+
+    public String[] getDates(){
+        String query = "select title from entries";
+        ArrayList<String> array = new ArrayList<String>();
+        Cursor cursor = database.rawQuery(query, null);
+        cursor.moveToFirst();
+        while(!cursor.isAfterLast()){
+            array.add(cursor.getString(0));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        ArrayList<String> arrayDates = new ArrayList<>();
+        for(String s : array){
+            arrayDates.add(getDate(s));
+        }
+
+        return arrayDates.toArray(new String[arrayDates.size()]);
     }
 }

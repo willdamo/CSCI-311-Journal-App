@@ -2,7 +2,9 @@ package com.example.journalapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ None
  */
 public class openEntryActivity extends AppCompatActivity {
 
+    View openEntryLayout;
     Button backButton2;
     Button editButton;
     Button deleteButton2;
@@ -41,6 +44,7 @@ public class openEntryActivity extends AppCompatActivity {
         ogEntry = control.getJournal(titleName);
         control.close();
 
+        openEntryLayout = findViewById(R.id.openEntryLayout);
         backButton2 = findViewById(R.id.backButton2);
         editButton = findViewById(R.id.editButton);
         deleteButton2 = findViewById(R.id.deleteButton2);
@@ -58,6 +62,72 @@ public class openEntryActivity extends AppCompatActivity {
         setEditButton();
         setJournalPage(titleName);
         setBackButton();
+
+        //setting layout
+        setLayout();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setLayout();
+    }
+
+    public void setLayout(){
+        SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+
+        //checks inside theme, if theme is none then proceed to make changes to other configurations
+        if(file.getString("theme", "n/a").equals("Default")){
+            openEntryLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            backButton2.setBackgroundColor(Color.parseColor("#FFC107"));
+            editButton.setBackgroundColor(Color.parseColor("#00E1FF"));
+            titleView.setTextColor(Color.parseColor("#000000"));
+            dateView.setTextColor(Color.parseColor("#000000"));
+            journalView.setTextColor(Color.parseColor("#000000"));
+        } else if(file.getString("theme", "none").equals("Night Owl")){
+            openEntryLayout.setBackgroundColor(Color.parseColor("#6C6C6C"));
+            backButton2.setBackgroundColor(Color.parseColor("#00E1FF"));
+            editButton.setBackgroundColor(Color.parseColor("#FFC107"));
+            titleView.setTextColor(Color.parseColor("#FFFFFF"));
+            dateView.setTextColor(Color.parseColor("#FFFFFF"));
+            journalView.setTextColor(Color.parseColor("#FFFFFF"));
+        }else {
+            backButton2.setBackgroundColor(Color.parseColor(getHexColors("backColor", "orange")));
+            editButton.setBackgroundColor(Color.parseColor(getHexColors("addEditColor", "blue")));
+            titleView.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            dateView.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            journalView.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
+            openEntryLayout.setBackgroundColor(Color.parseColor(getHexColors("backgroundColor", "white")));
+        }
+    }
+    public String getHexColors(String pref, String err){
+        SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        String colorName = file.getString(pref, err);
+        if(colorName.equalsIgnoreCase("white")){
+            return "#FFFFFF";
+        }
+        if(colorName.equalsIgnoreCase("black")){
+            return "#000000";
+        }
+        if(colorName.equalsIgnoreCase("red")){
+            return "#FF6969";
+        }
+        if(colorName.equalsIgnoreCase("blue")){
+            return "#00E1FF";
+        }
+        if(colorName.equalsIgnoreCase("purple")){
+            return "#CE74FF";
+        }
+        if(colorName.equalsIgnoreCase("orange")){
+            return "#FFC107";
+        }
+        if(colorName.equalsIgnoreCase("gray")){
+            return "#989898";
+        }
+        if(colorName.equalsIgnoreCase("dark gray")){
+            return "#6C6C6C";
+        }
+        return "Default";
     }
 
     //setting the page activity to show title and other elements

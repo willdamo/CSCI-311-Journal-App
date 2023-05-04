@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/margin_medium"
     android:layout_marginRight="@dimen/margin_medium"
+    android:orientation="vertical"
     android:gravity="center_vertical">
 
     <TextView
@@ -11,4 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/element_text"/>
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/journalDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:text="@string/element_text" />
+        />
+</LinearLayout>

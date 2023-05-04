@@ -21,22 +21,18 @@
     <string-array name="colors">
         <item>Default</item>
         <item>Red</item>
-        <item>Yellow</item>
         <item>Blue</item>
-        <item>Green</item>
         <item>Purple</item>
         <item>Orange</item>
         <item>Black</item>
         <item>White</item>
         <item>Gray</item>
-        <item>Light Gray</item>
         <item>Dark Gray</item>
     </string-array>
     <string-array name="themes">
+        <item>None</item>
         <item>Default</item>
         <item>Night Owl</item>
-        <item>Techno Feel</item>
-        <item>Neon City</item>
     </string-array>
 
 </resources>
