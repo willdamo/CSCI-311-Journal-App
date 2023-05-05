@@ -101,9 +101,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     public void setLayout(){
         SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = file.edit();
 
         //checks inside theme, if theme is none then proceed to make changes to other configurations
-        if(file.getString("theme", "n/a").equals("Default")){
+        if(file.getString("theme", "None").equals("Default")){
             settingsLayOut.setBackgroundColor(Color.parseColor("#FFFFFF"));
             backButton.setBackgroundColor(Color.parseColor("#FFC107"));
             saveButton.setBackgroundColor(Color.parseColor("#7CFF73"));
@@ -114,7 +115,14 @@ public class SettingsActivity extends AppCompatActivity {
             addEditText.setTextColor(Color.parseColor("#000000"));
             textColorText.setTextColor(Color.parseColor("#000000"));
             backgroundText.setTextColor(Color.parseColor("#000000"));
-        } else if(file.getString("theme", "none").equals("Night Owl")){
+
+            editor.putString("backColor", "Default");
+            editor.putString("addEditColor", "Default");
+            editor.putString("textColor",  "Default");
+            editor.putString("backgroundColor",  "Default");
+            editor.apply();
+
+        } else if(file.getString("theme", "None").equals("Night Owl")){
             settingsLayOut.setBackgroundColor(Color.parseColor("#6C6C6C"));
             backButton.setBackgroundColor(Color.parseColor("#00E1FF"));
             settingsText.setTextColor(Color.parseColor("#FFFFFF"));
@@ -123,7 +131,14 @@ public class SettingsActivity extends AppCompatActivity {
             addEditText.setTextColor(Color.parseColor("#FFFFFF"));
             textColorText.setTextColor(Color.parseColor("#FFFFFF"));
             backgroundText.setTextColor(Color.parseColor("#FFFFFF"));
-        }else {
+
+            editor.putString("backColor", "Default");
+            editor.putString("addEditColor", "Default");
+            editor.putString("textColor",  "Default");
+            editor.putString("backgroundColor",  "Default");
+            editor.apply();
+
+        }else if(!file.getString("theme", "None").equals("Default") && !file.getString("theme", "none").equals("Night Owl")){
             backButton.setBackgroundColor(Color.parseColor(getHexColors("backColor", "orange")));
             settingsText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
             setThemeText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
@@ -132,36 +147,37 @@ public class SettingsActivity extends AppCompatActivity {
             textColorText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
             backgroundText.setTextColor(Color.parseColor(getHexColors("textColor", "black")));
             settingsLayOut.setBackgroundColor(Color.parseColor(getHexColors("backgroundColor", "white")));
+        }else {
+            return;
         }
     }
     public String getHexColors(String pref, String err){
         SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
         String colorName = file.getString(pref, err);
+        String colorHex = "";
+
+        if(colorName.equalsIgnoreCase("Default")){
+            colorName = err;
+        }
+
         if(colorName.equalsIgnoreCase("white")){
-            return "#FFFFFF";
+            colorHex = "#FFFFFF";
+        } else if(colorName.equalsIgnoreCase("black")){
+            colorHex = "#000000";
+        }else if(colorName.equalsIgnoreCase("red")){
+            colorHex = "#FF6969";
+        }else if(colorName.equalsIgnoreCase("blue")){
+            colorHex = "#00E1FF";
+        }else if(colorName.equalsIgnoreCase("purple")){
+            colorHex = "#CE74FF";
+        }else if(colorName.equalsIgnoreCase("orange")){
+            colorHex = "#FFC107";
+        }else if(colorName.equalsIgnoreCase("gray")){
+            colorHex = "#989898";
+        }else if(colorName.equalsIgnoreCase("dark gray")){
+            colorHex = "#6C6C6C";
         }
-        if(colorName.equalsIgnoreCase("black")){
-            return "#000000";
-        }
-        if(colorName.equalsIgnoreCase("red")){
-            return "#FF6969";
-        }
-        if(colorName.equalsIgnoreCase("blue")){
-            return "#00E1FF";
-        }
-        if(colorName.equalsIgnoreCase("purple")){
-            return "#CE74FF";
-        }
-        if(colorName.equalsIgnoreCase("orange")){
-            return "#FFC107";
-        }
-        if(colorName.equalsIgnoreCase("gray")){
-            return "#989898";
-        }
-        if(colorName.equalsIgnoreCase("dark gray")){
-            return "#6C6C6C";
-        }
-        return "Default";
+        return colorHex;
     }
 
     @Override
@@ -227,6 +243,16 @@ public class SettingsActivity extends AppCompatActivity {
             //applies to settings if a theme is changed
             //if not changed then change the other configurations
             //this is to counteract overlapping between themes and configurations, cannot do both
+            if(!settingsFile.getString("theme", "None").equalsIgnoreCase("None") && (arr[1] == 1 || arr[2] == 1 || arr[3] == 1 || arr[4] == 1)){
+                Toast.makeText(getApplicationContext(), "Themes take precedent!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Set theme to 'None' for custom configuration", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            if (arr[5] == 1) {
+                String newJournal = changeJournalName.getText().toString();
+                editor.putString("journalName", newJournal);
+            }
             if(arr[0] == 1) {
                 editor.putString("theme", newTheme);
             }
@@ -243,10 +269,6 @@ public class SettingsActivity extends AppCompatActivity {
             if(arr[4] == 1) {
                 editor.putString("backgroundColor", newBackgroundColor);
             }
-            if (arr[5] == 1) {
-                String newJournal = changeJournalName.getText().toString();
-                editor.putString("journalName", newJournal);
-            }
 
             editor.apply();
             //will mark settings as changed
@@ -259,11 +281,6 @@ public class SettingsActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Night Owl Theme Enabled!", Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(getApplicationContext(), "Custom Theme Enabled!", Toast.LENGTH_LONG).show();
-            }
-
-            if(arr[0] == 1 && (arr[1] == 1 || arr[2] == 1 || arr[3] == 1 || arr[4] == 1)){
-                Toast.makeText(getApplicationContext(), "Themes take precedent!", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "Set theme to 'None' for custom configuration", Toast.LENGTH_LONG).show();
             }
         }
     }

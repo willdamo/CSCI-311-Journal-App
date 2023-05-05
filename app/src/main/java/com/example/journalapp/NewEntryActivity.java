@@ -110,31 +110,30 @@ public class NewEntryActivity extends AppCompatActivity {
     public String getHexColors(String pref, String err){
         SharedPreferences file = getSharedPreferences("settings", Context.MODE_PRIVATE);
         String colorName = file.getString(pref, err);
+        String colorHex = "";
+
+        if(colorName.equalsIgnoreCase("Default")){
+            colorName = err;
+        }
+
         if(colorName.equalsIgnoreCase("white")){
-            return "#FFFFFF";
+            colorHex = "#FFFFFF";
+        } else if(colorName.equalsIgnoreCase("black")){
+            colorHex = "#000000";
+        }else if(colorName.equalsIgnoreCase("red")){
+            colorHex = "#FF6969";
+        }else if(colorName.equalsIgnoreCase("blue")){
+            colorHex = "#00E1FF";
+        }else if(colorName.equalsIgnoreCase("purple")){
+            colorHex = "#CE74FF";
+        }else if(colorName.equalsIgnoreCase("orange")){
+            colorHex = "#FFC107";
+        }else if(colorName.equalsIgnoreCase("gray")){
+            colorHex = "#989898";
+        }else if(colorName.equalsIgnoreCase("dark gray")){
+            colorHex = "#6C6C6C";
         }
-        if(colorName.equalsIgnoreCase("black")){
-            return "#000000";
-        }
-        if(colorName.equalsIgnoreCase("red")){
-            return "#FF6969";
-        }
-        if(colorName.equalsIgnoreCase("blue")){
-            return "#00E1FF";
-        }
-        if(colorName.equalsIgnoreCase("purple")){
-            return "#CE74FF";
-        }
-        if(colorName.equalsIgnoreCase("orange")){
-            return "#FFC107";
-        }
-        if(colorName.equalsIgnoreCase("gray")){
-            return "#989898";
-        }
-        if(colorName.equalsIgnoreCase("dark gray")){
-            return "#6C6C6C";
-        }
-        return "Default";
+        return colorHex;
     }
 
     public void setBackButton(){

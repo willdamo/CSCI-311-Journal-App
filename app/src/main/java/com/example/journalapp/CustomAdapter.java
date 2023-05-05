@@ -74,7 +74,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                     if(colorName.equalsIgnoreCase("dark gray")){
                         colorHex = "#6C6C6C";
                     }else{
-                        colorHex = "Default";
+                        colorHex = "#000000";
                     }
 
                     journalView.setTextColor(Color.parseColor(colorHex));
@@ -136,7 +136,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
                 if (colorName.equalsIgnoreCase("dark gray")) {
                     colorHex = "#6C6C6C";
                 } else {
-                    colorHex = "Default";
+                    colorHex = "#FFFFFF";
                 }
                 view.setBackgroundColor(Color.parseColor(colorHex));
             }
